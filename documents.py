@@ -1,0 +1,8 @@
+
+class doc:
+    def __init__(self, title, text):
+        self.title=title
+        self.text=text
+    
+    def terms(self):
+        pass
