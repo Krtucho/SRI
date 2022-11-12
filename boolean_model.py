@@ -19,7 +19,15 @@ class Boolean_model:
 
 
     def load_query(self, query):
-        pass
+        result = []
+        for i, token in enumerate(query):
+            result.append(token)
+            if i == len(query) - 1:
+                continue
+            if not(query[i] in ("and", "or", "not")) and not query[i+1] in ("and", "or", "not"):
+                result.append("and")
+
+        return result
 
     def similitud(self, query, token_list):
         pass
