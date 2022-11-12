@@ -1,4 +1,8 @@
 
+from asyncio import QueueEmpty
+from turtle import right
+
+
 class Boolean_model:
 
     def __init__(self):
@@ -30,5 +34,38 @@ class Boolean_model:
         return result
 
     def similitud(self, query, token_list):
-        pass
+        result = set()
+
+        for i, token in enumerate(query): # Procesando or
+            if token == "or":
+                left = query[i-1]
+                right = query[i+1]
+                if right == "not":
+                    pass # aplicar not
+                else:
+                    docs = set(token_list[left]).union(set(token_list[right]))
+                    result.add(docs)
+
+        for i, token in enumerate(query): # Procesando and
+            if token == "and":
+                left = query[i-1]
+                right = query[i+1]
+                if right == "not":
+                    pass # aplicar not
+                else:
+                    docs = set(token_list[left]).intersection(set(token_list[right]))
+                    result.add(docs)
+
+        for i, token in enumerate(query): # Procesando not
+            if token == "not":
+                left = query[i-1]
+                right = query[i+1]
+                if left == "and" or left == "or":
+                    continue # Ya se analizo en los casos de and y or
+                else:
+                    docs = set(token_list[left]).difference(set(token_list[right]))
+                    result.add(docs)
         
+        return result # Me queda la duda sobre que devolver exactamente, xq podemos aplicarle interseccion a todos los documentos de result por ejemplo 
+                      # y eso se supone que te de todos los documentos comunes que cumplen ciertas cosas. Actualmente devolviendolo asi, estariamos
+                      # aplicando la union
