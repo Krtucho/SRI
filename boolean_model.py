@@ -2,7 +2,7 @@
 class Boolean_model:
 
     def __init__(self):
-        tokens_list = {}
+        self.tokens_list = {}
 
     def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
         tokens_list = {}
