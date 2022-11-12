@@ -34,7 +34,7 @@ class Boolean_model:
         return result
 
     def similitud(self, query, token_list):
-        result = set()
+        result = []
 
         for i, token in enumerate(query): # Procesando or
             if token == "or":
@@ -44,7 +44,7 @@ class Boolean_model:
                     pass # aplicar not
                 else:
                     docs = set(token_list[left]).union(set(token_list[right]))
-                    result.add(docs)
+                    result.append(docs)
 
         for i, token in enumerate(query): # Procesando and
             if token == "and":
@@ -54,7 +54,7 @@ class Boolean_model:
                     pass # aplicar not
                 else:
                     docs = set(token_list[left]).intersection(set(token_list[right]))
-                    result.add(docs)
+                    result.append(docs)
 
         for i, token in enumerate(query): # Procesando not
             if token == "not":
@@ -64,8 +64,12 @@ class Boolean_model:
                     continue # Ya se analizo en los casos de and y or
                 else:
                     docs = set(token_list[left]).difference(set(token_list[right]))
-                    result.add(docs)
+                    result.append(docs)
         
-        return result # Me queda la duda sobre que devolver exactamente, xq podemos aplicarle interseccion a todos los documentos de result por ejemplo 
+        documents = set()
+        for item in result:
+            documents = documents.intersection(item)
+
+        return documents # Me queda la duda sobre que devolver exactamente, xq podemos aplicarle interseccion a todos los documentos de result por ejemplo 
                       # y eso se supone que te de todos los documentos comunes que cumplen ciertas cosas. Actualmente devolviendolo asi, estariamos
                       # aplicando la union
