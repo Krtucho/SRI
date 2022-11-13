@@ -1,8 +1,8 @@
-from hashlib import new
 from documents import Doc
 import os, sys
 import nltk
 from nltk.corpus import stopwords
+
 
 def Open_File(path): 
     dirs = os.listdir( path ) 
@@ -26,7 +26,7 @@ def Clear(text):
     #new_text = re.sub(r"\s+", "", text)
     tokens = nltk.word_tokenize(new_text)
     #Unique Tokens (Solo deja un conj de tokens)
-    tokens=list(set(tokens))
+    #tokens=list(set(tokens))
     
     # Remove Special characters (Elimina los caracteres especiales)
     removetable=str.maketrans("", "", "!@#$%^&*()_=-\|][:';:,<.>/?`~") 
@@ -39,18 +39,10 @@ def Clear(text):
 
     return list(filter(None, tokens))
     
-
-dir_docs,ids = All_Dir_Doc()  # contiene las direcciones de todos los doc y su id la pos en que estos se encuentran en estos es la misma que en data
-
-def Create_Data(dir_docs):
-    data = [] 
-    id = 0
-    for dir in dir_docs:
-        archive = open(dir)
-        count = 1
+def Read(archive):
         title = ""
         text = ""
-    
+        count = 1
         line = archive.readline() 
         while(line):
             line = archive.readline()
@@ -59,20 +51,34 @@ def Create_Data(dir_docs):
             elif line != "\n":
                 text = text+""+ line[:-1] 
             count = count+1
-        count = 0
+        return title,text
+
+
+def Create_Data(dir_docs):
+    data = [] 
+    id = 0
+    for dir in dir_docs:
+        archive = open(dir)
+        title,text = Read(archive)
         #print(text)
         title= Clear(title)
         term = Clear(text)
+
         doc = Doc(id,title,term)
         data.append(doc)
         id = id+1
+
         archive.close()
         #break
     return data   
 
-data = Create_Data(dir_docs)
-print(data[0].term)
-print(data[0].title)  
+
+
+#dir_docs,ids = All_Dir_Doc()  # contiene las direcciones de todos los doc y su id la pos en que estos se encuentran en estos es la misma que en data
+#data = Create_Data(dir_docs)
+
+#print(data[0].term)
+#print(data[0].title)  
 
 # for i in data:
 #     print(i.term)

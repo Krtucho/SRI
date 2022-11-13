@@ -9,7 +9,7 @@ class Boolean_model:
         tokens_list = {}
 
         for doc in documents:
-            tokens = set(doc.text)
+            tokens = set(doc.term)
             for token in tokens:
                 if not tokens_list.__contains__(token):
                     tokens_list[token] = [doc]
