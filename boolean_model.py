@@ -33,23 +33,28 @@ class Boolean_model:
         return result
 
     def similitud(self, query, token_list):
+        print("Empieza el metodo")
         print(query)
         print(token_list)
-        result=set(token_list[0])
+
+        result=set(token_list[query[0]])
         
         print(result)
         for i, token in enumerate(query): # Procesando or
             if token == "or":
                 if query[i+1] == "not":
-                    result=result.union(set(set.documents).difference(set(token_list[i+2])))
+                    result=result.union((set(self.documents)).difference(set(token_list[query[i+2]])))
                 else:
-                    result=result.union(set(token_list[i+1]))
+                    result=result.union(set(token_list[query[i+1]]))
             elif token == "and":
                 if query[i+1] == "not":
-                    result=result.intersection(set(self.documents).difference(set(token_list[i+2])))
+                    result=result.intersection(set(self.documents).difference(set(token_list[query[i+2]])))
                 else:
-                    result=result.intersection(set(token_list[i+1]))
+                    result=result.intersection(set(token_list[query[i+1]]))
             print(result)
+
+        print("Resultado")
+        print(result)
         return result
 
 
