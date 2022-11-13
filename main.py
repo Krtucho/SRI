@@ -1,5 +1,4 @@
 from boolean_model import Boolean_model
-from documents import Doc
 from query import Clear_Query
 from parse import All_Dir_Doc,Create_Data
 
@@ -7,6 +6,7 @@ def main():
 
     dir_docs,ids = All_Dir_Doc()  # contiene las direcciones de todos los doc y su id la pos en que estos se encuentran en estos es la misma que en data
     data = Create_Data(dir_docs)
+    modelo=Boolean_model(data)
         
     while(True):
         
@@ -17,10 +17,7 @@ def main():
             break
         
         query = Clear_Query(query_text)
-    
-        modelo=Boolean_model(data)
-        print([doc.title for doc in modelo.similitud(query, modelo.load_documents(data))])
-
+        print([doc.title for doc in modelo.similitud(query, modelo.tokens_list)])
 
     
 

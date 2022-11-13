@@ -3,7 +3,7 @@ class Boolean_model:
 
     def __init__(self, documents):
         self.documents=documents
-        self.tokens_list = {}
+        self.tokens_list = self.load_documents(documents)
 
     def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
         tokens_list = {}
@@ -16,7 +16,7 @@ class Boolean_model:
                 else:
                     tokens_list[token].append(doc)
 
-        print(tokens_list)
+        #print(tokens_list)
 
         return tokens_list
 
@@ -35,13 +35,13 @@ class Boolean_model:
     def similitud(self, query, token_list):
         print("Empieza el metodo")
         print(query)
-        print(token_list)
+        #print(token_list)
         if query[0] == "not":
             result=set(self.documents).difference(set(token_list[query[1]]))
         else:
             result=set(token_list[query[0]])
         
-        print(result)
+        #print(result)
         for i, token in enumerate(query): # Procesando or
             if token == "or":
                 if query[i+1] == "not":
