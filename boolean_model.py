@@ -1,22 +1,22 @@
-from asyncio import QueueEmpty
-from turtle import right
-
 
 class Boolean_model:
 
-    def __init__(self):
+    def __init__(self, documents):
+        self.documents=documents
         self.tokens_list = {}
 
     def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
         tokens_list = {}
 
         for doc in documents:
-            tokens = set(documents.text)
+            tokens = set(doc.text)
             for token in tokens:
                 if not tokens_list.__contains__(token):
                     tokens_list[token] = [doc]
                 else:
                     tokens_list[token].append(doc)
+
+        print(tokens_list)
 
         return tokens_list
 
@@ -32,21 +32,26 @@ class Boolean_model:
 
         return result
 
-    def similitud(self, query, token_list, documents):
+    def similitud(self, query, token_list):
+        print(query)
+        print(token_list)
         result=set(token_list[0])
-
+        
+        print(result)
         for i, token in enumerate(query): # Procesando or
             if token == "or":
                 if query[i+1] == "not":
-                    result=result.union(set(documents).difference(set(token_list[i+2])))
+                    result=result.union(set(set.documents).difference(set(token_list[i+2])))
                 else:
                     result=result.union(set(token_list[i+1]))
             elif token == "and":
                 if query[i+1] == "not":
-                    result=result.intersection(set(documents).difference(set(token_list[i+2])))
+                    result=result.intersection(set(self.documents).difference(set(token_list[i+2])))
                 else:
                     result=result.intersection(set(token_list[i+1]))
+            print(result)
         return result
+
 
 
 
