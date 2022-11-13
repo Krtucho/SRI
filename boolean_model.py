@@ -36,8 +36,10 @@ class Boolean_model:
         print("Empieza el metodo")
         print(query)
         print(token_list)
-
-        result=set(token_list[query[0]])
+        if query[0] == "not":
+            result=set(self.documents).difference(set(token_list[query[1]]))
+        else:
+            result=set(token_list[query[0]])
         
         print(result)
         for i, token in enumerate(query): # Procesando or
