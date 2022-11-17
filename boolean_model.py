@@ -42,7 +42,7 @@ class Boolean_model:
             result=set(token_list[query[0]])
         
         #print(result)
-        for i, token in enumerate(query): # Procesando or
+        for i, token in enumerate(query): # Procesando or y and
             if token == "or":
                 if query[i+1] == "not":
                     result=result.union((set(self.documents)).difference(set(token_list[query[i+2]])))
