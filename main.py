@@ -19,7 +19,7 @@ def main():
         query = Clear_Query(query_text)
         query = modelo.load_query(query)
         print(query)
-        titles = [doc.title +"\n" for doc in modelo.similitud(query, modelo.tokens_list)]
+        titles = [doc.title for doc in modelo.similitud(query, modelo.tokens_list)]
         
         for title in titles:
             print(title)
