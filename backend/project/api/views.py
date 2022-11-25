@@ -13,6 +13,7 @@ def apiOverview(request):
     api_urls = {
         'Boolean': '/boolean/',
     }
+    return Response(api_urls)
     
 # TODO
 # Aqui se supone que sea donde se realicen las modificaciones pertinentes. Luego en caso de agregar nuevos modelos al sistema, modificar el archivo urls.py agregando las urls de para ejecutar los mismos.
