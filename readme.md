@@ -1,6 +1,6 @@
 Eso solo sería dos 
 
-1- Descomprimir el Data.rar en la carpeta del proyecto.
+1- Descomprimir el Data.rar dentro de la carpeta backend.
 
 2- Ejecutar en la consola main.py hasta que salga que introduzca una consulta.
 
