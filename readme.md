@@ -1,4 +1,4 @@
-Eso solo sería dos 
+Pasos para ejecutar
 
 1- Descomprimir el Data.rar dentro de la carpeta backend.
 
