@@ -33,8 +33,8 @@ class Boolean_model:
         return result
 
     def similitud(self, query, token_list):
-        print("Empieza el metodo")
-        print(query)
+        #print("Empieza el metodo")
+        #print(query)
         #print(token_list)
         if query[0] == "not":
             result=set(self.documents).difference(set(token_list[query[1]]))
@@ -53,8 +53,8 @@ class Boolean_model:
                     result=result.intersection(set(self.documents).difference(set(token_list[query[i+2]])))
                 else:
                     result=result.intersection(set(token_list[query[i+1]]))
-            print(result)
+            #print(result)
 
-        print("Resultado")
-        print(result)
+        #print("Resultado")
+        #print(result)
         return result
