@@ -47,23 +47,26 @@ def Read(archive):
         while(line):
             line = archive.readline()
             if(count == 1):
-               title = line[9:-1]
+               #title = line[9:-1]
+               text = line[9:-1]
             elif line != "\n":
                 text = text+""+ line[:-1] 
             count = count+1
-        return title,text
+        #return title,text
+        return text
 
 
-def Create_Data(dir_docs):
+def Create_Data(dir_docs,id_doc):
     data = [] 
     id = 0
     for dir in dir_docs:
         archive = open(dir)
-        title,text = Read(archive)
+        #title,text = Read(archive)
+        text = Read(archive)
         #print(text)
-        title= Clear(title)
+        #title= Clear(title)
         term = Clear(text)
-
+        title = str(id_doc[id])
         doc = Doc(id,title,term)
         data.append(doc)
         id = id+1
