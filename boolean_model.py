@@ -33,15 +33,21 @@ class Boolean_model:
         return result
 
     def similitud(self, query, token_list):
+<<<<<<< Updated upstream
         print("Empieza el metodo")
         print(query)
         print(token_list)
+=======
+>>>>>>> Stashed changes
         if query[0] == "not":
             result=set(self.documents).difference(set(token_list[query[1]]))
         else:
             result=set(token_list[query[0]])
         
+<<<<<<< Updated upstream
         print(result)
+=======
+>>>>>>> Stashed changes
         for i, token in enumerate(query): # Procesando or
             if token == "or":
                 if query[i+1] == "not":
@@ -53,6 +59,7 @@ class Boolean_model:
                     result=result.intersection(set(self.documents).difference(set(token_list[query[i+2]])))
                 else:
                     result=result.intersection(set(token_list[query[i+1]]))
+<<<<<<< Updated upstream
             print(result)
 
         print("Resultado")
@@ -63,3 +70,12 @@ class Boolean_model:
 
 
 
+=======
+
+        return result
+
+
+
+
+
+>>>>>>> Stashed changes
