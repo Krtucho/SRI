@@ -1,9 +1,14 @@
+# from vector_model import Doc
 import math 
+from abstract_model import Model
 
-class Vector_Model:
+
+class Vector_Model(Model):
     def __init__(self,documents):
         self.documents=documents
         self.tokens_list = self.load_documents(documents)
+        self.q_weights=None
+        self.doc_weights=None
 
     def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
         tokens_list = {}
@@ -17,6 +22,10 @@ class Vector_Model:
                     tokens_list[token].append(doc)
 
         return tokens_list
+
+    def load_query(self,query):
+        self.doc_weights=self.docs_weights(query)
+        self.q_weights=self.query_weights(query)
 
 #metodo que calcula la frecuencia normalizada de la consulta
     def freq_normal_q(self, query):
@@ -32,6 +41,7 @@ class Vector_Model:
         for f in term_freq:
             term_freq[f] /= max_freq  
         return term_freq
+
 
 #metodo que calcula la frecuencia normalizada de los documentos
     def freq_normal(self, query):
@@ -59,8 +69,8 @@ class Vector_Model:
 
     def similitud(self, query, doc):
 
-        q_weights = self.query_weights(query)
-        doc_weights = self.docs_weights(query)
+        q_weights = self.q_weights
+        doc_weights = self.doc_weights
 
         sum_weights_total=0
         sum_cuadrado_doc_weights=0
@@ -75,10 +85,11 @@ class Vector_Model:
                 sum_weights_total += 0
                 sum_cuadrado_doc_weights += 0
                 sum_cuadrado_q_weights += pow(q_weights[term], 2)
-        denominador = (math.sqrt(sum_cuadrado_doc_weights) * math.sqrt(sum_cuadrado_q_weights))        
-        if denominador:
-            return (sum_weights_total / denominador)
-        return denominador
+        if sum_cuadrado_doc_weights==0 or sum_cuadrado_q_weights==0:
+            return 0
+            
+        sim_doc_q=sum_weights_total / (math.sqrt(sum_cuadrado_doc_weights) * math.sqrt(sum_cuadrado_q_weights))
+        return sim_doc_q
 
     #pesos en los documentos
     def docs_weights(self, query):
@@ -89,7 +100,6 @@ class Vector_Model:
         doc_weights={}
         for term,doc in freq_nor.keys():
             doc_weights[(term,doc)]=freq_nor[(term,doc)] * idf_i[term]
-
         return doc_weights
 
         
@@ -103,7 +113,7 @@ class Vector_Model:
         q_weights={}
         for term in query:
             q_weights[term]=( 0.5 + (1 - 0.5) * freq_nor_q[term] ) * idf_i[term]
-
+        
         return q_weights
 
 

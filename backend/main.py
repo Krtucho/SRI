@@ -37,21 +37,28 @@ def main():
     #data = Create_Data(dir_docs,ids)
     
     #Con cran
-    data,dir_doc = data,dir_doc = parse_cran.Create_Data()
+    data,dir_doc = parse_cran.Create_Data()
     modelo=Vector_Model(data)
         
     while(True):
         
         print("Welcome, Please enter your query")
-        query_text = input()    
+        query_text = input()
+  
         if(query_text == "exit"):
             break
+        
         query = Clear_Query(query_text,False)
+        modelo.load_query(query)
 
-        for doc in data:
-            similitud = modelo.similitud(query,doc)
-            if similitud > 0.0:
-                print(doc.title+ " " + str(similitud))
-    
+        print(query)
+
+        for i,doc in enumerate(modelo.documents):
+            similitud = modelo.similitud(query, doc)
+            if(similitud >0.0):
+                print(doc.title)
+                print(i)
+                
+            
     
 main()
