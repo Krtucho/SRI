@@ -61,7 +61,7 @@ def process(model,input):
     query_text = input     
     #if(query_text == "exit"):
     #    break    
-    query = Clear_Query(query_text)
+    query = Clear_Query(query_text,True)
     query = modelo.load_query(query)
     print(query)
     titles = dict()

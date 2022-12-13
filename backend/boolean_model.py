@@ -37,22 +37,35 @@ class Boolean_model:
         #print(query)
         #print(token_list)
         if query[0] == "not":
-            result=set(self.documents).difference(set(token_list[query[1]]))
+            temp = token_list.get(query[1])
+            #if(temp!=None):
+            result=set(self.documents).difference(set(temp))
         else:
-            result=set(token_list[query[0]])
+            temp = token_list.get(query[0])
+            #if(temp!=None):
+            result=set(temp)
         
         #print(result)
         for i, token in enumerate(query): # Procesando or
             if token == "or":
                 if query[i+1] == "not":
-                    result=result.union((set(self.documents)).difference(set(token_list[query[i+2]])))
+                    temp = token_list.get(query[i+2])
+                    #if(temp!=None):
+                    result=result.union((set(self.documents)).difference(set(temp)))
                 else:
-                    result=result.union(set(token_list[query[i+1]]))
+                    temp = token_list.get(query[i+1])
+                    #if(temp!=None):
+                    result=result.union(set(temp))
             elif token == "and":
                 if query[i+1] == "not":
-                    result=result.intersection(set(self.documents).difference(set(token_list[query[i+2]])))
+                    temp = token_list.get(query[i+2])
+                    #if(temp!=None):
+                    result=result.intersection(set(self.documents).difference(set(temp)))
                 else:
-                    result=result.intersection(set(token_list[query[i+1]]))
+                    #temp = token_list[query[i+1]]
+                    temp = token_list.get(query[i+1])
+                    #if(temp!=None):
+                    result=result.intersection(set(temp))
             #print(result)
 
         #print("Resultado")
