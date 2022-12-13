@@ -1,7 +1,7 @@
-Eso solo sería dos 
+Pasos para ejecutar
 
-1- Descomprimir el Data.rar en la carpeta del proyecto.
+1- Descomprimir el Data.rar dentro de la carpeta backend.
 
-2- Ejecutar en la consola main.py hasta que salga que introduzca una consulta.
+2- Situarse dentro de la carpeta backend
 
-3- Introducir la consulta. Ver los resultados con los documentos relevantes y volver a ejecutar el paso 3.
+3- Ejecutar en la consola  python manage.py runserver
