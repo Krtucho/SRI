@@ -1,7 +1,7 @@
-# from vector_model import Doc
 import math 
 from abstract_model import Model
-
+from query import Load_Query, Clear_Query
+from parse_cran import Parse_Cranqrel
 
 class Vector_Model(Model):
     def __init__(self,documents):
@@ -66,7 +66,6 @@ class Vector_Model(Model):
                 idf_i[term]=0
         return idf_i
 
-
     def similitud(self, query, doc):
 
         q_weights = self.q_weights
@@ -91,7 +90,7 @@ class Vector_Model(Model):
         sim_doc_q=sum_weights_total / (math.sqrt(sum_cuadrado_doc_weights) * math.sqrt(sum_cuadrado_q_weights))
         return sim_doc_q
 
-    #pesos en los documentos
+    # pesos en los documentos
     def docs_weights(self, query):
 
         freq_nor = self.freq_normal(query)
@@ -101,10 +100,8 @@ class Vector_Model(Model):
         for term,doc in freq_nor.keys():
             doc_weights[(term,doc)]=freq_nor[(term,doc)] * idf_i[term]
         return doc_weights
-
-        
-    
-    #pesos en las consultas
+            
+    # pesos en las consultas
     def query_weights(self, query):
 
         freq_nor_q = self.freq_normal_q(query)
@@ -116,4 +113,61 @@ class Vector_Model(Model):
         
         return q_weights
 
+    # Me devuelve los k doc con mayor similitud con respecto a una query
+    def k_doc_best_similitud(self,query,k):
+        similitud_dic ={}
+        for doc in self.documents:
+            similitud = self.similitud(query, doc)
+            if(similitud >0.0):
+                similitud_dic[doc.title] = similitud
+        sortedDictWithValues = dict(sorted(similitud_dic.items(), key=lambda x: x[1], reverse=True)) 
+        similitud_dic = sortedDictWithValues       
+        return list(similitud_dic.keys())[0:k]
+        
+    
+    def Presicion(self,cran_querys,dict_querys):
+        presicion  = []
+        Relevantes_q = []
+        for q in dict_querys.keys():
+            Relevantes_q = cran_querys[q].split()
+            Recuperados = dict_querys[q].__len__()
+            RRecuperados_q= intersection(Relevantes_q,dict_querys[q])
+            presicion.append(RRecuperados_q/Recuperados)
+        
+        return presicion
+     
+    
+     
+    def Recobrado (self,cran_querys,dict_querys):
+        recobrado  = []
+        Relevantes_q = []
+        for q in dict_querys.keys():
+            Relevantes_q = cran_querys[q].split()
+            Recuperados = dict_querys[q]
+            RRecuperados_q= intersection(Relevantes_q,Recuperados)
+            NR = Relevantes_q.__len__() - RRecuperados_q
+            recobrado.append(RRecuperados_q/(RRecuperados_q + NR))
+        return recobrado
+ 
+    # Medida F1
+    def f1(self,p, r):
+        f1 = []
+        for i in range(0,len(p)):
+            pi,ri = 0,0
+            if(p[i]!=0):
+                pi = 1/p[i]
+            if(r[i]!=0):
+                ri = 1/r[i]
+            d = pi + ri
+            if d!= 0:
+                f1.append( 2/d)
+            else:
+                f1.append(0.0)    
+        return f1
+    
+ # Cant element comunes entre dos list
+def intersection(x, y):
+    z = [value for value in x if value in y]
+    return len(z)
 
+   

@@ -94,7 +94,7 @@ def process(model,query_text,db):
         query = modelo.load_query(query)
         print("boolean")
         print(query)
-        for doc in modelo.similitud(query, modelo.tokens_list):
+        for doc in modelo.similitud(query):
             titles[doc.title]=dir_docs[doc.id]
     
     if model =="vect":

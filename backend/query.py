@@ -3,6 +3,17 @@ import re
 from parse import expand_contractions
 from nltk.corpus import stopwords
 
+# Elimina ceros a la izquierda de numeros
+def Clear_Zero(string):
+    text = ''
+    ok = False
+    for i in range (0,len(string)):
+        if string[i] == "0":
+            continue
+        else:
+            text = string[i:]
+            break  
+    return text        
 
 def Clear_Query(text,booleano):
     # Lleva todo el texto a minuscula
@@ -33,28 +44,25 @@ def Clear_Query(text,booleano):
     
     return list(filter(None, tokens))
  
- 
- 
+
 def Load_Query():
-        archive = open("Data_Cran/cran.qry")
+        archive = open("Data_Cran/querys.txt")
         data = {}
         key = 1
         text = ""
-        while(line):
-            if text != "" and line[0:2] == ".I":
+        line = True
+        while(line or text!= ""):
+            line = archive.readline()
+            if text != "" and (line[0:2] == ".I" or line == ''):
                 data[key] = text
                 text = ''
-                key = line[3:-1]
-            line = archive.readline()
-            if line[0:2] == ".I" or line == ".W\n":
-                continue
-            elif line != "\n":
+                key = key +1
+            elif line != "\n" and line[0:2] != ".I" :
                 text = text+""+ line[:-1]
         archive.close()
-        return data
+        return data    
     
-    
-    
+ 
     
     
     
