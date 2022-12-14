@@ -1,5 +1,6 @@
 from boolean_model import Boolean_model
-from vector_model import Vector_Model
+from vector_model import Vector_model
+from fuzzy_model import Fuzzy_model
 from query import Clear_Query
 from parse import All_Dir_Doc,Create_Data
 from documents import Doc
@@ -16,8 +17,9 @@ def main():
     fin=time.time()
     print("El tiempo en crear la data")
     print(fin-inicio)
+
     # data=[]
-    # doc1= Doc("doc1","hola",["leon","leon","leon"])
+    # doc1= Doc("doc1","hola",["tiger","dog"])
     # data.append(doc1)
     # doc2= Doc("doc2","hola1",["leon","leon","leon","zorro"])
     # data.append(doc2)
@@ -28,25 +30,30 @@ def main():
     # doc5= Doc("doc5","hola4",["nutria"])
     # data.append(doc5)
 
-    modelo=Vector_Model(data)
+    modelo=Fuzzy_model(data)
         
-    while(True):
+    # while(True):
         
-        print("Welcome, Please enter your query")
-        query_text = input()
+    #     print("Welcome, Please enter your query")
+    #     query_text = input()
 
     # query_text="shdkjfbdj kjdj"
     # query_text="leon zorro nutria"
-    # query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
+    query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
     # query_text="forget 2017 tiger "
         
-        if(query_text == "exit"):
-            break
-        
-    query = Clear_Query(query_text)
-    query = modelo.load_query(query)
+        # if(query_text == "exit"):
+        #     break
+    # query_text="lion and tiger or tiger or not dog"
 
-    print(query)
+    query = Clear_Query(query_text)
+
+    print(modelo.load_query(query))
+    print(modelo.query_term)
+
+    print(modelo.correl_matrix)
+    print(modelo.fuzzy_set_doc)
+    # print(query)
 
 
     # print(modelo.load_documents(data))
@@ -68,22 +75,24 @@ def main():
     # print("frecuencia normalizada de la consulta")
     # print(modelo.freq_normal_q(query))
 
+
+
     #TIMER: ESO SE PUEDE COMENTAR
-    inicio_general=time.time()
+    # inicio_general=time.time()
 
-    for i,doc in enumerate(modelo.documents):
-        inicio=time.time()
+    # for i,doc in enumerate(modelo.documents):
+    #     inicio=time.time()
 
-        print(modelo.similitud(query, doc))
+    #     print(modelo.similitud(query, doc))
        
 
-        fin=time.time()
-        print(i)
-        print("El tiempo que se demoro")
-        print(fin-inicio)
+    #     fin=time.time()
+    #     print(i)
+    #     print("El tiempo que se demoro")
+    #     print(fin-inicio)
         
-    final=time.time()
-    print(final-inicio_general)
+    # final=time.time()
+    # print(final-inicio_general)
     
         
         # for title in titles:
