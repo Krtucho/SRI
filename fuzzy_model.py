@@ -1,3 +1,4 @@
+import sympy
 from abstract_model import Model
 
 class Fuzzy_model(Model):
@@ -8,6 +9,8 @@ class Fuzzy_model(Model):
         self.correl_matrix=None
         self.query_term=None
         self.fuzzy_set_doc=None
+        self.q_fnd=None
+        self.q_fndc=None
 
     def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
         tokens_list = {}
@@ -30,22 +33,6 @@ class Fuzzy_model(Model):
 
         self.query_term=query_term
         self.correl_matrix=self.correlation_matrix(query_term)
-        # corr_matrix={}
-        # corr_matrix[(query_term[0],query_term[0])]=1
-        # corr_matrix[(query_term[0],query_term[1])]=0.6
-        # corr_matrix[(query_term[0],query_term[2])]=0.4
-
-        # corr_matrix[(query_term[1],query_term[0])]=0.6
-        # corr_matrix[(query_term[1],query_term[1])]=1
-        # corr_matrix[(query_term[1],query_term[2])]=0.75
-
-        # corr_matrix[(query_term[2],query_term[0])]=0.4
-        # corr_matrix[(query_term[2],query_term[1])]=0.75
-        # corr_matrix[(query_term[2],query_term[2])]=1
-
-        # self.correl_matrix=corr_matrix
-
-
         self.fuzzy_set_doc=self.fuzzy_set_associated_with_doc()
         
         result = []
@@ -55,6 +42,9 @@ class Fuzzy_model(Model):
                 continue
             if not(query[i] in ("and", "or", "not")) and not query[i+1] in ("and", "or", "not"):
                 result.append("and")
+
+        string = " "
+        self.q_fnd=simpy.to_dnf(sympy.simplify(string.join(result)))
 
         return result
 
@@ -99,8 +89,16 @@ class Fuzzy_model(Model):
 
         return fuzzy_doc
 
-    def ranking_function(self):
+    def fndc(self):
         pass
+
+    def ranking_function(self, doc):
+        pass
+        # miu_q_doc=0
+        # for cc in self.q_fndc:
+        #     miu_cc=1
+        #     for t in cc:
+        #         if 
                 
 
     
