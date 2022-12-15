@@ -104,7 +104,7 @@ def process(model,query_text,db):
         similitud_dic ={}
         for doc in modelo.documents:
             similitud = modelo.similitud(query, doc)
-            if(similitud >0.0):
+            if(similitud >0.1):
                 similitud_dic[doc] = similitud
                 titles[doc.title]=dir_docs[doc.id]
     
