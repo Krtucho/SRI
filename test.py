@@ -1,17 +1,17 @@
-import sympy
-from sympy.logic.boolalg import to_dnf
-from sympy.abc import A, B, C
-from boolean_model import Boolean_model
-from vector_model import Vector_model
-from fuzzy_model import Fuzzy_model
-from query import Clear_Query
-from parse import All_Dir_Doc,Create_Data
-from documents import Doc
+# from boolean_model import Boolean_model
+# from vector_model import Vector_model
+# from fuzzy_model import Fuzzy_model
+# from query import Clear_Query
+# from parse import All_Dir_Doc,Create_Data
+# from documents import Doc
 import time
+# import sympy
 from component import Component
 from bool_alg_op import BooleanAlgOp
-# import sympy
 
+# cwd = os.getcwd()
+    
+#     file = open(os.path.join(cwd,"Data_Cran","rel.txt"), "w")
 
 def main():
 
@@ -25,9 +25,9 @@ def main():
     # print("El tiempo en crear la data")
     # print(fin-inicio)
 
-    data=[]
-    doc1= Doc("doc1","hola",["tiger","dog"])
-    data.append(doc1)
+    # data=[]
+    # doc1= Doc("doc1","hola",["tiger","dog"])
+    # data.append(doc1)
     # doc2= Doc("doc2","hola1",["leon","leon","leon","zorro"])
     # data.append(doc2)
     # doc3= Doc("doc3","hola2",["leon","zorro","nutria"])
@@ -37,8 +37,7 @@ def main():
     # doc5= Doc("doc5","hola4",["nutria"])
     # data.append(doc5)
 
-    modelo=Fuzzy_model(data)
-    # modelo=Boolean_model(data)
+    # modelo=Fuzzy_model(data)
         
     # while(True):
         
@@ -46,58 +45,35 @@ def main():
     #     query_text = input()
 
     # query_text="shdkjfbdj kjdj"
-    # query_text="shdkjfbdj forget"
-    # query_text="leon and zorro or nutria"
-    
+    # query_text="leon zorro nutria"
     # query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
-    # query_text="forget or tiger lion"
+    query_text="(forget & 2017) | tiger "
 
-        
+    op=BooleanAlgOp(query_text)
+
+    q_fndc = op.process_query_and_get_fndc(query_text)
+    # q_fnd = BooleanAlgOp.get_fndc(3, query_text,['forget', '2017', 'tiger'])
+    # q_fnd=sympy.to_dnf((query_text))
+
+    for lt,cc in q_fndc.items():
+        print(lt)
+        print(cc.n_components)
+        print(cc.components)
+        print(cc.query)
+        print(cc.left_components)
+
+    print(op.components_ref)
+    print(op.components_dict)
+
+    print(BooleanAlgOp.process_query_parenthesis(query_text))
+    # print(q_fndc)
+    
+    # print(q_fndc)
         # if(query_text == "exit"):
         #     break
-    query_text="lion and tiger or lion or not dog"
+    # query_text="lion and tiger or tiger or not dog"
 
-    # print(sympy.to_dnf(query_text))
-
-    # print(to_dnf(sympy.simplify(query_text)))
-
-    # print(to_dnf(A & B | A | ~C))
-
-    # print(to_dnf(sympy.sympify(query_text)))
-
-    # print(query)
-
-    # query_text=sympy.to_dnf((A & B) | (C & ~A))
-
-    # print(query_text)
-
-    # expr = sympy.sympify("(A & ~C) | (~A & ~B) | (B & C)")
-    # exp=to_dnf((A & B) | (A | ~C), False,False)
-    
-    # expr = sympy.sympify("(A & ~C) | (~A & ~B) | (B & C)")
-    # expr_minDNF = to_dnf((A & ~C) | (~A & ~B) | (B & C), simplify=True)
-    # print(expr_minDNF)
-
-
-
-    query = Clear_Query(query_text)
-    print("Query")
-    print(query)
-
-    print("result")
-    print(modelo.load_query(query))
-
-    print("Fnd")
-    print(modelo.q_fnd)
-
-    print("matrix")
-    print(modelo.correl_matrix)
-
-    print("fndc")
-    print(modelo.q_fndc)
-
-    print("ranking function")
-    print(modelo.ranking_function(doc1))
+    # query = Clear_Query(query_text)
 
     # print(modelo.load_query(query))
     # print(modelo.query_term)
@@ -105,7 +81,6 @@ def main():
     # print(modelo.correl_matrix)
     # print(modelo.fuzzy_set_doc)
     # print(query)
-    # print(modelo.similitud(query))
 
 
     # print(modelo.load_documents(data))
