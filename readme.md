@@ -4,7 +4,9 @@ Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr e
 
 ## Correr Backend
 ### Situarse dentro de la carpeta backend.
-`>cd backend`
+```bash
+>cd backend
+```
 ### Instalar Python
 https://www.python.org/downloads/
 ### Instalar Dependencias del requirements.txt, haciendo:
