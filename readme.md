@@ -18,6 +18,7 @@ https://www.python.org/downloads/
 
 # Correr FrontEnd
 # Instalar nodejs
+https://nodejs.org/es/download/
 # Instalar vue-quasar:
 >npm install -g @quasar/cli
 
