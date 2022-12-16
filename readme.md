@@ -3,12 +3,17 @@
 Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr el proyecto
 
 # Correr Backend
-1 - Situarse dentro de la carpeta backend. >cd backend
-2 - Instalar Python
-2 - Instalar Dependencias del requirements.txt, haciendo >pip install requirements.txt
-Correr los siguientes comandos:
+# Situarse dentro de la carpeta backend.
+>cd backend
+# Instalar Python
+https://www.python.org/downloads/
+# Instalar Dependencias del requirements.txt, haciendo 
+>pip install requirements.txt
+# Correr los siguientes comandos:
 >python main.py
+
 >python manage.py collectstatic
+
 >python manage.py runserver
 
 # Correr FrontEnd
@@ -18,6 +23,7 @@ Correr los siguientes comandos:
 
 # Instalar dependencias de npm del proyecto en frontend:
 >cd frontend
+
 >npm install
 
 # Ejecutar el proyecto frontend
