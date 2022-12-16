@@ -8,6 +8,8 @@ class BooleanAlgOp():
        
     def initialize(self, query):
         """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
+        query = BooleanAlgOp.process_query_parenthesis(query)
+        
         query_set = set(query.split()).difference(["&", "|", "~", "(", ")"])
         self.components_ref = []
         
@@ -17,8 +19,23 @@ class BooleanAlgOp():
         self.components_dict = BooleanAlgOp.create_components_dict(self.components_ref) # Diccionario con llaves: terminos, valores: indice en array. Al termino t1 le corresponde el indice 1 en el array components_refs
     
     @staticmethod
+    def process_query_parenthesis(query:str):
+        last_query = ""
+        for i in range(len(query)):
+            last_query+= query[i]
+            
+            if query[i] == "(":
+                last_query+= " "
+            if i + 1 < len(query) and query[i+ 1] == ")":
+                last_query+= " "     
+            
+        return last_query
+    
+    @staticmethod
     def process_query_and_get_fndc(query:str):
         """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
+        query = BooleanAlgOp.process_query_parenthesis(query)
+        
         query_set = set(query.split()).difference(["&", "|", "~", "(", ")"])
         components_ref = []
         
@@ -80,7 +97,7 @@ class BooleanAlgOp():
                 continue
             
             if query[index] == "(": # Si abro parentesis reinicio todo
-                beg = index
+                beg = index+1
                 temp_comp = set()
                 temp_query = ""
                 end = index

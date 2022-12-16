@@ -55,6 +55,7 @@ def main():
     # q_fnd = BooleanAlgOp.get_fndc(3, query_text,['forget', '2017', 'tiger'])
     # q_fnd=sympy.to_dnf((query_text))
     
+    
     for lt,cc in q_fndc.items():
         print(lt)
         print(cc.n_components)
@@ -65,6 +66,9 @@ def main():
     print(op.components_ref)
     print(op.components_dict)
     print(q_fndc)
+    
+    print(BooleanAlgOp.process_query_parenthesis(query_text))
+    
         # if(query_text == "exit"):
         #     break
     # query_text="lion and tiger or tiger or not dog"
