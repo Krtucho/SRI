@@ -31,6 +31,22 @@ class BooleanAlgOp():
             
         return last_query
     
+    
+    @staticmethod
+    def process_and_get_fndc(query:str, query_term:list):
+        """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
+        query_with_not = BooleanAlgOp.process_query_parenthesis(query, False)
+        query = BooleanAlgOp.process_query_parenthesis(query)
+        
+        # query_set = set(query.split()).difference(["&", "|", "~", "(", ")"])
+        # components_ref = []
+        
+        # for query_token in query_set:
+        #     components_ref.append(query_token)
+            
+        return BooleanAlgOp.get_fndc(len(query_term), query_with_not, components_ref=query_term)
+    
+    
     @staticmethod
     def process_query_and_get_fndc(query:str):
         """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
@@ -44,6 +60,7 @@ class BooleanAlgOp():
             components_ref.append(query_token)
             
         return BooleanAlgOp.get_fndc(len(query_set), query_with_not, components_ref=components_ref)
+    
     @staticmethod
     def get_fndc(n_components: int, query: str, components_ref: list = None):
         """Dada una query, su cantidad de componentes y sus componentes devuelve un diccionario con las cc"""
@@ -108,7 +125,7 @@ class BooleanAlgOp():
                 if temp_query != "":
                     temp_query += " " + query[index]
                 temp_query += query[index]
-                temp_comp = temp_comp.union([query[index]])
+                temp_comp = temp_comp.union([query[index]] if query[index][0] != "~" else [query[index][1:]])
                 end = index
                 
             if index == len(query) - 1: # Si llego al final de mi query, analizo el caso, si tengo alguna cc que aun no se ha procesado, entonces la incluyo en esta parte del codigo
