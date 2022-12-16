@@ -5,7 +5,9 @@
 # from parse import All_Dir_Doc,Create_Data
 # from documents import Doc
 import time
-import sympy
+# import sympy
+from component import Component
+from bool_alg_op import BooleanAlgOp
 
 # cwd = os.getcwd()
     
@@ -47,7 +49,8 @@ def main():
     # query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
     query_text="forget & 2017 | tiger "
         
-    q_fnd=sympy.to_dnf((query_text))
+    q_fnd = BooleanAlgOp.get_fndc(3, query_text, [],['forget', '2017', 'tiger'])
+    # q_fnd=sympy.to_dnf((query_text))
     
     print(q_fnd)
         # if(query_text == "exit"):
