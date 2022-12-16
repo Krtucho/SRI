@@ -14,7 +14,9 @@ https://www.python.org/downloads/
 pip install -r requirements.txt
 ```
 ### Correr los siguientes comandos:
-`>python main.py`
+```
+>python main.py
+```
 
 `>python manage.py collectstatic`
 
