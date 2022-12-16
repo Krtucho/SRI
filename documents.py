@@ -1,11 +1,9 @@
 
 
 class Doc:
-    def __init__(self, title, text):
+
+    def __init__(self,id, title, term):
         self.title=title
-<<<<<<< Updated upstream
-        self.text=text
-=======
         self.term=term
         self.id = id
         self.term_frec = {}  # diccionario de termino_frecuencia normalizada
@@ -24,7 +22,5 @@ class Doc:
             self.term_frec[f] /= self.max_frec        
         
             
->>>>>>> Stashed changes
     
-    def terms(self):
-        pass
+    

@@ -1,24 +1,38 @@
+from abstract_model import Model
 
-class Boolean_model:
+class Boolean_model(Model):
 
     def __init__(self, documents):
         self.documents=documents
-        self.tokens_list = {}
+        self.tokens_list = self.load_documents(documents)
 
     def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
         tokens_list = {}
 
-        for doc in documents:
-            tokens = set(doc.text)
+        for doc in documents: 
+            tokens = set(doc.term)
             for token in tokens:
-                if not tokens_list.__contains__(token):
+                if not token in tokens_list:
                     tokens_list[token] = [doc]
                 else:
                     tokens_list[token].append(doc)
 
-        print(tokens_list)
-
         return tokens_list
+
+    # def load_documents(self, documents)-> dict: # Asumo que documents es un array de documentos de tipo doc
+    #     tokens_list = {}
+
+    #     for doc in documents:
+    #         tokens = set(doc.text)
+    #         for token in tokens:
+    #             if not tokens_list.__contains__(token):
+    #                 tokens_list[token] = [doc]
+    #             else:
+    #                 tokens_list[token].append(doc)
+
+    #     print(tokens_list)
+
+    #     return tokens_list
 
 
     def load_query(self, query):
@@ -32,45 +46,43 @@ class Boolean_model:
 
         return result
 
-    def similitud(self, query, token_list):
-<<<<<<< Updated upstream
-        print("Empieza el metodo")
-        print(query)
-        print(token_list)
-=======
->>>>>>> Stashed changes
+    def similitud(self, query):
+        token_list=self.tokens_list
+        result=set()
+        # result=None
+
         if query[0] == "not":
-            result=set(self.documents).difference(set(token_list[query[1]]))
+            if query[1] in token_list:
+                result=set(self.documents).difference(set(token_list[query[1]]))
+            else:
+                result=set(self.documents)
         else:
-            result=set(token_list[query[0]])
+            if query[0] in token_list:
+                result=set(token_list[query[0]])
         
-<<<<<<< Updated upstream
-        print(result)
-=======
->>>>>>> Stashed changes
         for i, token in enumerate(query): # Procesando or
+
             if token == "or":
                 if query[i+1] == "not":
-                    result=result.union((set(self.documents)).difference(set(token_list[query[i+2]])))
+                    if query[i+2] in token_list:
+                        result=result.union((set(self.documents)).difference(set(token_list[query[i+2]])))
+                    else:
+                        result=result.union(set(self.documents))
                 else:
-                    result=result.union(set(token_list[query[i+1]]))
+                    if query[i+1] in token_list:
+                        result=result.union(set(token_list[query[i+1]]))
+                        
             elif token == "and":
                 if query[i+1] == "not":
-                    result=result.intersection(set(self.documents).difference(set(token_list[query[i+2]])))
+                    if query[i+2] in token_list:
+                        result=result.intersection(set(self.documents).difference(set(token_list[query[i+2]])))
+                    else:
+                        result=result.intersection(set(self.documents))
                 else:
-                    result=result.intersection(set(token_list[query[i+1]]))
-<<<<<<< Updated upstream
-            print(result)
-
-        print("Resultado")
-        print(result)
-        return result
-
-
-
-
-
-=======
+                    if query[i+1] in token_list:
+                        result=result.intersection(set(token_list[query[i+1]]))
+                    else:
+                        result=set()
 
         return result
 
@@ -78,4 +90,3 @@ class Boolean_model:
 
 
 
->>>>>>> Stashed changes

@@ -1,8 +1,9 @@
 # from vector_model import Doc
 import math 
+from abstract_model import Model
 
 
-class Vector_Model:
+class Vector_model(Model):
     def __init__(self,documents):
         self.documents=documents
         self.tokens_list = self.load_documents(documents)

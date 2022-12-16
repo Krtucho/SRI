@@ -1,3 +1,6 @@
+import sympy
+from sympy.logic.boolalg import to_dnf
+from sympy.abc import A, B, C
 from boolean_model import Boolean_model
 from vector_model import Vector_model
 from fuzzy_model import Fuzzy_model
@@ -5,6 +8,8 @@ from query import Clear_Query
 from parse import All_Dir_Doc,Create_Data
 from documents import Doc
 import time
+# import sympy
+
 
 def main():
 
@@ -31,6 +36,7 @@ def main():
     # data.append(doc5)
 
     modelo=Fuzzy_model(data)
+    # modelo=Boolean_model(data)
         
     # while(True):
         
@@ -38,22 +44,45 @@ def main():
     #     query_text = input()
 
     # query_text="shdkjfbdj kjdj"
-    # query_text="leon zorro nutria"
-    query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
-    # query_text="forget 2017 tiger "
+    # query_text="shdkjfbdj forget"
+    # query_text="leon and zorro or nutria"
+    
+    # query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
+    query_text="forget or tiger lion"
         
         # if(query_text == "exit"):
         #     break
     # query_text="lion and tiger or tiger or not dog"
 
-    query = Clear_Query(query_text)
+    # print(to_dnf(sympy.sympify(query_text)))
 
-    print(modelo.load_query(query))
-    print(modelo.query_term)
-
-    print(modelo.correl_matrix)
-    print(modelo.fuzzy_set_doc)
     # print(query)
+
+    # query_text=sympy.to_dnf((A & B) | (C & ~A))
+
+    # print(query_text)
+
+    # expr = sympy.sympify("(A & ~C) | (~A & ~B) | (B & C)")
+    # exp=to_dnf((A & B) | (A | ~C), False,False)
+    
+    # expr = sympy.sympify("(A & ~C) | (~A & ~B) | (B & C)")
+    # expr_minDNF = to_dnf((A & ~C) | (~A & ~B) | (B & C), simplify=True)
+    # print(expr_minDNF)
+
+
+
+    query = Clear_Query(query_text)
+    print(query)
+    print(modelo.load_query(query))
+    print(modelo.q_fnd)
+
+    # print(modelo.load_query(query))
+    # print(modelo.query_term)
+
+    # print(modelo.correl_matrix)
+    # print(modelo.fuzzy_set_doc)
+    # print(query)
+    # print(modelo.similitud(query))
 
 
     # print(modelo.load_documents(data))

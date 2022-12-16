@@ -37,14 +37,23 @@ class Fuzzy_model(Model):
         
         result = []
         for i, token in enumerate(query):
-            result.append(token)
+            if token == "or":
+                result.append("|")
+            elif token =="and":
+                result.append("&")
+            elif token=="not":
+                result.append("~")
+            else:
+                result.append(token)
+
             if i == len(query) - 1:
                 continue
             if not(query[i] in ("and", "or", "not")) and not query[i+1] in ("and", "or", "not"):
-                result.append("and")
+                result.append("&")
+
 
         string = " "
-        self.q_fnd=simpy.to_dnf(sympy.simplify(string.join(result)))
+        self.q_fnd=sympy.to_dnf(sympy.simplify(string.join(result)))
 
         return result
 
