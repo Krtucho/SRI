@@ -29,6 +29,7 @@ class BooleanAlgOp():
         
     @staticmethod
     def create_components_dict(components_ref):
+        """Creando diccionario donde la llave es el termino y el valor el indice que le corresponde en el array. Al indice t1 le corresponde el indice 1, al indice t2 el indice 2 en el array....termino tn => indice n"""
         components_dict = {}
         for i, token in enumerate(components_ref):
             components_dict[token] = i
@@ -38,8 +39,8 @@ class BooleanAlgOp():
     @staticmethod
     def extract_query_cc(query: str, components_dict: dict, components_set: set):
         """Se Procesa la query y se extraen las CC y voy creando las clases del tipo Component, para luego expandir cada CC que es un Component y obtener una fndc"""
-        temp_comp = set()
-        temp_query: str = ""
+        temp_comp = set()   # Conjunto para ir guardando temporalmente todos los terminos que vaya encontrando
+        temp_query: str = ""    # Str para ir guardando la cadena de la cc que este actualizando actualmente
         beg = 0
         end = 0
         components_amount = 0
@@ -50,7 +51,7 @@ class BooleanAlgOp():
             if query[index] == " ":
                 end = index
                 continue
-            if query[index] == "&": # Si viene un & continuo y ya 
+            if query[index] == "&": # Si viene un & continuo y sigo buscando al proximo termino
                 temp_query += " " + query[index]
                 end = index
                 continue
@@ -77,7 +78,7 @@ class BooleanAlgOp():
                 temp_comp = temp_comp.union([query[index]])
                 end = index
                 
-            if index == len(query) - 1:
+            if index == len(query) - 1: # Si llego al final de mi query, analizo el caso, si tengo alguna cc que aun no se ha procesado, entonces la incluyo en esta parte del codigo
                 if temp_query != "":
                     temp_cc = BooleanAlgOp.create_cc(" ".join(query[beg:end+1]), len(temp_comp), temp_comp, components_set) # Creando CC
                     cc_list.append(temp_cc)
@@ -86,7 +87,7 @@ class BooleanAlgOp():
                     temp_comp = set()
                     end = index
                     
-        return cc_list
+        return cc_list # Devuelvo una lista con todas las cc (pertenecientes a la clase Component)
                 
     @staticmethod
     def create_cc(temp_query: str, components_amount: int, temp_comp, components_set:set):

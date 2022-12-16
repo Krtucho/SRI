@@ -9,44 +9,45 @@ class Component:
         
     def eval(self):
         """Genera todas las FND restantes de la CC actual agregando las componentes que faltan hasta lograr generar FNDC para cada cc."""
-        components_list: list = []
+        components_list: list = [] # Lista que contiene instancias de Component(CC)
         
         for left_component in self.left_components:
-            components = self.add_component(left_component)
-            if len(components[0].left_components) == 0:
+            
+            components = self.add_component(left_component) # Obtengo las 2 CC que se forman al hacer A & ( ~B v B ) **Logica de toda la laif**
+            if len(components[0].left_components) == 0: # Si en la primera forma Ya se agregaron todos los camponentes, agrego esta a la lista a devolver
                 components_list.append(components[0])
             else:
-                for component in components[0].eval():
+                for component in components[0].eval(): # Sino, recorro cada cc que me genera esta cc al hacer A & ( ~B v B ) **Logica de toda la laif**
                     components_list.append(component)
               
-            if len(components[1].left_components) == 0:
+            if len(components[1].left_components) == 0: # Si en la segunda forma Ya se agregaron todos los camponentes, agrego esta a la lista a devolver
                 components_list.append(components[1])
             else:  
-                for component in components[1].eval():
+                for component in components[1].eval(): # Sino, recorro cada cc que me genera esta cc al hacer A & ( ~B v B ) **Logica de toda la laif**
                     components_list.append(component)
             
         return components_list
         
     @staticmethod
     def reduce(components_list: list, str_components_dict:dict) -> dict:
-        """Dada una lista """
+        """Dada una lista con las componentes conexas y un diccionario de llave(terminos( => indice en el array. Al indice t1 le corresponde el indice 1, al indice t2 el indice 2 en el array....termino tn => indice n. \n Devuelve un diccionario con las cc en plan llaves: (0 1 0) (1 0 1) y como valores las cc de tipo Component"""
         component_dict: dict = {}
          
-        for component in components_list:
-            index = []
+        for component in components_list:   # Recorro todas las cc para ver cuales se repiten y deshacerme de estas.
+            index = []                      # Me entero de esto al agregar la llave al diccionario. Si la llave ya existe, entonces se repite una cc
             bool_val = []
             every_cc = component.query.split(" & ")
-            for token in every_cc:
+            for token in every_cc:  # Recorro cada termino y verifico si esta negado o no
                 if token[0] == "~":
                     temp_index = str_components_dict[token[1:]]
-                    index.append((temp_index, 0))
+                    index.append((temp_index, 0))   # Si se encuentra negado agrega la tupla (indice del termino, 0)
                     # bool_val.append(0)
-                else:
+                else:   # Si no se encuentra negado agrega la tupla (indice del termino, 1)
                     temp_index = str_components_dict[token]
                     index.append((temp_index, 1))
                     # bool_val.append(1)
                     
-            bool_val = sorted(index, key=lambda x : x[0])
+            bool_val = sorted(index, key=lambda x : x[0])   # Los ordeno por valor de indice del termino en el array
             print(bool_val)
             
             dict_str = ""
@@ -60,5 +61,6 @@ class Component:
         return component_dict
         
     def add_component(self, component_letter: str):
+        """Obtengo las 2 CC que se forman al hacer A & ( ~B v B ) **Logica de toda la laif**. Devuelvo una tupla con 2 cc de tipo Component"""
         return (Component(self.n_components+1, self.query + " & "+component_letter, self.components.union([component_letter]), self.left_components.difference([component_letter])), 
                 Component(self.n_components+1, self.query+" & ~"+component_letter, self.components.union([component_letter]), self.left_components.difference([component_letter])))

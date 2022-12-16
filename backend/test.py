@@ -47,7 +47,7 @@ def main():
     # query_text="shdkjfbdj kjdj"
     # query_text="leon zorro nutria"
     # query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
-    query_text="forget & 2017 | tiger "
+    query_text="(forget & 2017) | tiger "
     
     q_fndc = BooleanAlgOp.process_query_and_get_fndc(query_text)
     # q_fnd = BooleanAlgOp.get_fndc(3, query_text,['forget', '2017', 'tiger'])
