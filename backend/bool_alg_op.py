@@ -13,17 +13,17 @@ class BooleanAlgOp():
         return BooleanAlgOp.get_fndc(len(query_set), query, components_ref=components_ref)
     @staticmethod
     def get_fndc(n_components: int, query: str, components_ref: list = None):
-        """Dada una query y """
-        components_set = set(components_ref)
+        """Dada una query, su cantidad de componentes y sus componentes devuelve un diccionario con las cc"""
+        components_set = set(components_ref)    # Conjunto para tener todos los terminos sin repetir
         components_dict = BooleanAlgOp.create_components_dict(components_ref) # Diccionario con llaves: terminos, valores: indice en array. Al termino t1 le corresponde el indice 1 en el array components_refs
-        component_list = BooleanAlgOp.extract_query_cc(query.split(), components_dict, components_set)
+        component_list = BooleanAlgOp.extract_query_cc(query.split(), components_dict, components_set) # Aqui obtengo todas las CC y las agrego en una lista para luego quitar las que esten repetidas
         
         cc_final_list = []
         for component in component_list:
             for component_eval in component.eval():
                 cc_final_list.append(component_eval)
                 
-        cc_final_dict = Component.reduce(cc_final_list, components_dict)
+        cc_final_dict = Component.reduce(cc_final_list, components_dict) # Aqui me deshago de las componentes repetidas
         
         return cc_final_dict
         
@@ -37,6 +37,7 @@ class BooleanAlgOp():
         
     @staticmethod
     def extract_query_cc(query: str, components_dict: dict, components_set: set):
+        """Se Procesa la query y se extraen las CC y voy creando las clases del tipo Component, para luego expandir cada CC que es un Component y obtener una fndc"""
         temp_comp = set()
         temp_query: str = ""
         beg = 0
@@ -49,11 +50,11 @@ class BooleanAlgOp():
             if query[index] == " ":
                 end = index
                 continue
-            if query[index] == "&":
+            if query[index] == "&": # Si viene un & continuo y ya 
                 temp_query += " " + query[index]
                 end = index
                 continue
-            if query[index] == "|":
+            if query[index] == "|": # Si viene un | Creo una CC
                 temp_cc = BooleanAlgOp.create_cc(" ".join(query[beg:end+1]), len(temp_comp), temp_comp, components_set) # Creando CC
                 cc_list.append(temp_cc)
                 beg = index+1
@@ -62,7 +63,7 @@ class BooleanAlgOp():
                 end = index
                 continue
             
-            if query[index] == "(":
+            if query[index] == "(": # Si abro parentesis reinicio todo
                 beg = index
                 temp_comp = set()
                 temp_query = ""
@@ -78,7 +79,7 @@ class BooleanAlgOp():
                 
             if index == len(query) - 1:
                 if temp_query != "":
-                    temp_cc = BooleanAlgOp.create_cc(" ".join(query[beg:end+1]), len(temp_comp), temp_comp, components_set)
+                    temp_cc = BooleanAlgOp.create_cc(" ".join(query[beg:end+1]), len(temp_comp), temp_comp, components_set) # Creando CC
                     cc_list.append(temp_cc)
                     beg = index
                     temp_query = ""
@@ -89,4 +90,5 @@ class BooleanAlgOp():
                 
     @staticmethod
     def create_cc(temp_query: str, components_amount: int, temp_comp, components_set:set):
+        """Se Crea una clase Component \ntemp_query: pedazo de cadena que representa a la CC actual\ncomponents_amount: cantidad de componentes en la cc actual\nactual_comp: conjunto con todos los terminos que se encuentran en la CC\ncomponents_set: conjunto con todos los terminos, se utiliza para hallar la diferencia con los q se encuentran en el actual y quedarme con los que faltan"""
         return Component(components_amount, temp_query, components=temp_comp, left_components=components_set.difference(set(temp_comp)))
