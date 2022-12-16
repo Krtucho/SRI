@@ -1,4 +1,4 @@
-# Pasos para ejecutar
+# $ \ color {red} {Pasos para ejecutar}
 
 Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr el proyecto
 
