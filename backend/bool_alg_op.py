@@ -104,7 +104,7 @@ class BooleanAlgOp():
                 end = index
                 continue
             
-            if (query[index]) in components_dict: # Agregando token a la CC que se esta generando actualmente
+            if (query[index]) in components_dict or (len(query[index]) > 1 and (query[index][1:] in components_dict)): # Agregando token a la CC que se esta generando actualmente
                 if temp_query != "":
                     temp_query += " " + query[index]
                 temp_query += query[index]
