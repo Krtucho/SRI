@@ -4,29 +4,29 @@ Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr e
 
 ## Correr Backend
 ### Situarse dentro de la carpeta backend.
->cd backend
+`>cd backend`
 ### Instalar Python
 https://www.python.org/downloads/
 ### Instalar Dependencias del requirements.txt, haciendo:
->pip install -r requirements.txt
+`>pip install -r requirements.txt`
 ### Correr los siguientes comandos:
->python main.py
+`>python main.py`
 
->python manage.py collectstatic
+`>python manage.py collectstatic`
 
->python manage.py runserver
+`>python manage.py runserver`
 
 ## Correr FrontEnd
 ### Instalar nodejs
 https://nodejs.org/es/download/
 ### Instalar vue-quasar:
->npm install -g @quasar/cli
+`>npm install -g @quasar/cli`
 
 ### Instalar dependencias de npm del proyecto en frontend:
->cd frontend
+`>cd frontend`
 
->npm install
+`>npm install`
 
 ### Ejecutar el proyecto frontend
->quasar dev
+`>quasar dev`
 
