@@ -72,7 +72,13 @@ class Fuzzy_model(Model):
 
 
         string = " "
+<<<<<<< Updated upstream:fuzzy_model.py
         self.q_fnd=sympy.to_dnf(string.join(result))
+=======
+        self.q_fnd=sympy.to_dnf(sympy.simplify(string.join(result)))
+        print("fndc")
+        print(self.q_fnd)
+>>>>>>> Stashed changes:backend/fuzzy_model.py
         self.class_BooleanAlgOp=BooleanAlgOp(str(self.q_fnd))
         print(str(self.q_fnd))
         self.q_fndc = self.class_BooleanAlgOp.process_query_and_get_fndc(str(self.q_fnd))
@@ -127,6 +133,11 @@ class Fuzzy_model(Model):
         miu_q_doc=0
         cc_p=1
         for literal in self.q_fndc.keys():
+<<<<<<< Updated upstream:fuzzy_model.py
+=======
+            print("fndc keys")
+            print(self.q_fndc.keys())
+>>>>>>> Stashed changes:backend/fuzzy_model.py
             literal_list = literal.split(" ")
             print("literales")
             print(literal)
