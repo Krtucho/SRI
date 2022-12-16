@@ -48,11 +48,12 @@ def main():
     # query_text="leon zorro nutria"
     # query_text="lion and tiger tiger tiger be only you and never forget it forget it 2017"
     query_text="forget & 2017 | tiger "
-        
-    q_fnd = BooleanAlgOp.get_fndc(3, query_text, [],['forget', '2017', 'tiger'])
+    
+    q_fndc = BooleanAlgOp.process_query_and_get_fndc(query_text)
+    # q_fnd = BooleanAlgOp.get_fndc(3, query_text,['forget', '2017', 'tiger'])
     # q_fnd=sympy.to_dnf((query_text))
     
-    print(q_fnd)
+    print(q_fndc)
         # if(query_text == "exit"):
         #     break
     # query_text="lion and tiger or tiger or not dog"

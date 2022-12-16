@@ -2,9 +2,20 @@ from component import Component
 
 class BooleanAlgOp(): 
     @staticmethod
-    def get_fndc(n_components: int, query: str, components: list, components_ref: list = None):
+    def process_query_and_get_fndc(query:str):
+        """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
+        query_set = set(query.split()).difference(["&", "|", "~", "(", ")"])
+        components_ref = []
+        
+        for query_token in query_set:
+            components_ref.append(query_token)
+            
+        return BooleanAlgOp.get_fndc(len(query_set), query, components_ref=components_ref)
+    @staticmethod
+    def get_fndc(n_components: int, query: str, components_ref: list = None):
+        """Dada una query y """
         components_set = set(components_ref)
-        components_dict = BooleanAlgOp.create_components_dict(components_ref)
+        components_dict = BooleanAlgOp.create_components_dict(components_ref) # Diccionario con llaves: terminos, valores: indice en array. Al termino t1 le corresponde el indice 1 en el array components_refs
         component_list = BooleanAlgOp.extract_query_cc(query.split(), components_dict, components_set)
         
         cc_final_list = []
