@@ -10,7 +10,9 @@ Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr e
 ### Instalar Python
 https://www.python.org/downloads/
 ### Instalar Dependencias del requirements.txt, haciendo:
-`>pip install -r requirements.txt`
+```
+>pip install -r requirements.txt
+```
 ### Correr los siguientes comandos:
 `>python main.py`
 
