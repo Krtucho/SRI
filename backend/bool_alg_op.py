@@ -1,6 +1,21 @@
 from component import Component
 
-class BooleanAlgOp(): 
+class BooleanAlgOp():
+    def __init__(self, query):
+        self.components_dict = {}
+        self.components_ref = []
+        self.initialize(query)
+       
+    def initialize(self, query):
+        """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
+        query_set = set(query.split()).difference(["&", "|", "~", "(", ")"])
+        self.components_ref = []
+        
+        for query_token in query_set:
+            self.components_ref.append(query_token)
+            
+        self.components_dict = BooleanAlgOp.create_components_dict(self.components_ref) # Diccionario con llaves: terminos, valores: indice en array. Al termino t1 le corresponde el indice 1 en el array components_refs
+    
     @staticmethod
     def process_query_and_get_fndc(query:str):
         """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
