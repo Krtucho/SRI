@@ -1,9 +1,25 @@
-Pasos para ejecutar
+# Pasos para ejecutar
 
-1- Descomprimir el Data.rar dentro de la carpeta backend.
+Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr el proyecto
 
-2- Descomprimir el Data_Cran.rar dentro de la carpeta backend.
+# Correr Backend
+1 - Situarse dentro de la carpeta backend. >cd backend
+2 - Instalar Python
+2 - Instalar Dependencias del requirements.txt, haciendo >pip install requirements.txt
+Correr los siguientes comandos:
+>python main.py
+>python manage.py collectstatic
+>python manage.py runserver
 
-3- Situarse dentro de la carpeta backend
+# Correr FrontEnd
+# Instalar nodejs
+# Instalar vue-quasar:
+>npm install -g @quasar/cli
 
-4- Ejecutar en la consola  python manage.py runserver
+# Instalar dependencias de npm del proyecto en frontend:
+>cd frontend
+>npm install
+
+# Ejecutar el proyecto frontend
+>quasar dev
+

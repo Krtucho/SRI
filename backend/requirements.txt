@@ -1,0 +1,8 @@
+django
+djangorestframework
+djangorestframework-simplejwt 
+django-model-utils
+django-cors-headers
+Nltk
+re
+punkt

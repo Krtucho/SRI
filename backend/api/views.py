@@ -8,6 +8,11 @@ from parse import All_Dir_Doc, Create_Data
 from query import Clear_Query
 from vector_model import Vector_Model
 
+
+import os
+from django.http import JsonResponse, HttpResponse
+import json
+
 # TODO: Agregar un import que sea el que contenga la clase en la que se procesen todos los documentos al comienzo de la ejecucion del programa.
 # TODO: Tb hay que agregar las clases correspondientes con los modelos para ejecutar y llevar a cabo los metodos de similitud y otros que sean necesarios.
 
@@ -45,7 +50,7 @@ def post_boolean(request):
     out = process("boolean",input,data_base)
     #out = process("boolean",input)
     #return Response("Se supone que aqui se devuelve un json(diccionario) con todos los documentos relevantes en la consulta", status=status.HTTP_200_OK)
-    return Response(out, status=status.HTTP_200_OK)
+    return HttpResponse(json.dumps(out), content_type="application/json")#Response(out, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def boolean(request):
@@ -104,11 +109,28 @@ def process(model,query_text,db):
         similitud_dic ={}
         for doc in modelo.documents:
             similitud = modelo.similitud(query, doc)
-            if(similitud >0.0):
+            if(similitud >0.1):
                 similitud_dic[doc] = similitud
                 titles[doc.title]=dir_docs[doc.id]
     
-    for t in titles:
-        print(t)
+    # for t in titles:
+    #     print(t)
+    response = []
+    for doc in titles.items():
+        url_doc = doc[1].replace(".","_")
+        url_doc = url_doc[5:]
+        # print(url_doc)
+        responseData = {
+        'name': doc[0],
+        'url': "http://localhost:8000/static/" + url_doc#doc[1]
+        }
+       
+        response.append( responseData)
+    # responseData = {
+    #     'id': 4,
+    #     'name': 'Test Response',
+    #     'roles' : ['Admin','User']
+    # }
 
-    return titles    
+    # print(response)
+    return response  

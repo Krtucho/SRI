@@ -1,3 +1,6 @@
+from pathlib import Path
+import os
+
 """
 Django settings for project project.
 
@@ -37,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    "corsheaders",
     'api',
     
     'rest_framework'
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,7 +127,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Data'),
+    os.path.join(BASE_DIR, 'Data_Cran')
+    ]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'Data')
+#     ]
+
+# STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['Data']))
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# DEBUG=True
+
+CORS_ORIGIN_ALLOW_ALL = True

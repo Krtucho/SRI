@@ -15,20 +15,20 @@ def main():
     data,dir_doc = parse_cran.Create_Data()
     modelo=Boolean_model(data)
         
-    while(True):
+    # while(True):
         
-        print("Welcome, Please enter your query")
-        query_text = input()
+    #     print("Welcome, Please enter your query")
+    #     query_text = input()
         
-        if(query_text == "exit"):
-            break
+    #     if(query_text == "exit"):
+    #         break
         
-        query = Clear_Query(query_text,True)
-        query = modelo.load_query(query)
-        print(query)
-        titles = [doc.title for doc in modelo.similitud(query)]
-        for t in titles:
-            print(t)
+    #     query = Clear_Query(query_text,True)
+    #     query = modelo.load_query(query)
+    #     print(query)
+    #     titles = [doc.title for doc in modelo.similitud(query)]
+    #     for t in titles:
+    #         print(t)
         
     
 # # Main vectorial de prueba con Data
