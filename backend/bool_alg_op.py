@@ -19,12 +19,12 @@ class BooleanAlgOp():
         self.components_dict = BooleanAlgOp.create_components_dict(self.components_ref) # Diccionario con llaves: terminos, valores: indice en array. Al termino t1 le corresponde el indice 1 en el array components_refs
     
     @staticmethod
-    def process_query_parenthesis(query:str):
+    def process_query_parenthesis(query:str, include_not: bool = True):
         last_query = ""
         for i in range(len(query)):
             last_query+= query[i]
             
-            if query[i] == "(":
+            if query[i] == "(" or (include_not and query[i] == "~"):
                 last_query+= " "
             if i + 1 < len(query) and query[i+ 1] == ")":
                 last_query+= " "     
@@ -34,6 +34,7 @@ class BooleanAlgOp():
     @staticmethod
     def process_query_and_get_fndc(query:str):
         """Primero extrae los datos necesarios de la query y luego procesa esta, devolviendo al final un diccionario con las llaves como Componentes CC y valores como instancias de la clase Component Ej (0 1 0) (1 0 1)"""
+        query_with_not = BooleanAlgOp.process_query_parenthesis(query, False)
         query = BooleanAlgOp.process_query_parenthesis(query)
         
         query_set = set(query.split()).difference(["&", "|", "~", "(", ")"])
@@ -42,7 +43,7 @@ class BooleanAlgOp():
         for query_token in query_set:
             components_ref.append(query_token)
             
-        return BooleanAlgOp.get_fndc(len(query_set), query, components_ref=components_ref)
+        return BooleanAlgOp.get_fndc(len(query_set), query_with_not, components_ref=components_ref)
     @staticmethod
     def get_fndc(n_components: int, query: str, components_ref: list = None):
         """Dada una query, su cantidad de componentes y sus componentes devuelve un diccionario con las cc"""

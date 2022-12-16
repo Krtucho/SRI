@@ -117,7 +117,7 @@ def process(model,query_text,db):
     #     print(t)
     response = []
     for doc in titles.items():
-        url_doc = doc[1].replace(".","_")
+      #  url_doc = doc[1].replace(".","_")
         url_doc = url_doc[5:]
         # print(url_doc)
         responseData = {

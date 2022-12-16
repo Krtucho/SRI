@@ -38,6 +38,8 @@ class Component:
             bool_val = []
             every_cc = component.query.split(" & ")
             for token in every_cc:  # Recorro cada termino y verifico si esta negado o no
+                if len(token) == 0:
+                    continue
                 if token[0] == "~":
                     temp_index = str_components_dict[token[1:]]
                     index.append((temp_index, 0))   # Si se encuentra negado agrega la tupla (indice del termino, 0)
