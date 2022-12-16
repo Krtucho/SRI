@@ -7,6 +7,9 @@ class Component:
         self.left_components: set = left_components  # Conjunto con componentes restantes de esta cc...Ej Si ya contiene al termino t1 y t2, pero en la query hay 3 terminos
                                                      # Este set contendra al termino t3 y el set de self.components contendra a t1 y t2
         
+    def __str__(self):
+        return self.query
+   
     def eval(self):
         """Genera todas las FND restantes de la CC actual agregando las componentes que faltan hasta lograr generar FNDC para cada cc."""
         components_list: list = [] # Lista que contiene instancias de Component(CC)
@@ -64,5 +67,5 @@ class Component:
         
     def add_component(self, component_letter: str):
         """Obtengo las 2 CC que se forman al hacer A & ( ~B v B ) **Logica de toda la laif**. Devuelvo una tupla con 2 cc de tipo Component"""
-        return (Component(self.n_components+1, self.query + " & "+component_letter, self.components.union([component_letter]), self.left_components.difference([component_letter])), 
-                Component(self.n_components+1, self.query+" & ~"+component_letter, self.components.union([component_letter]), self.left_components.difference([component_letter])))
+        return (Component(self.n_components+1, self.query + (" & " if self.n_components >= 1 else "") +component_letter, self.components.union([component_letter]), self.left_components.difference([component_letter])), 
+                Component(self.n_components+1, self.query + (" & ~" if self.n_components >= 1 else "~" )+component_letter, self.components.union([component_letter]), self.left_components.difference([component_letter])))

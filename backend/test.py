@@ -61,7 +61,7 @@ def main():
     for lt,cc in q_fndc.items():
         print(lt)
         print(cc.n_components)
-        print(cc.components)
+        print(str(cc.components))
         print(cc.query)
         print(cc.left_components)
     
