@@ -12,7 +12,7 @@ def Read_Write(archive):
         key = 1
         text = ""
         line = archive.readline()
-        file = open("Data_Cran/.I 1.txt", "w")
+        file = open("Data_Cran/I 1.txt", "w")
         file.write(line)
         while(line):
             if text != "" and line[0:2] == ".I":
@@ -20,7 +20,7 @@ def Read_Write(archive):
                 text = ''
                 key = line[3:-1]
                 file.close() #cierra el archivo abierto
-                file = open("Data_Cran/.I "+str(key)+".txt", "w") #abre un nuevo archivo
+                file = open("Data_Cran/I "+str(key)+".txt", "w") #abre un nuevo archivo
                 file.write(line)
             line = archive.readline()
             if line[0:2] == ".I" or line == ".T\n" or line == ".A\n" or line == ".B\n" or line == ".W\n":
@@ -42,7 +42,7 @@ def Create_Data():
     for key in data_base.keys():
         text = data_base[key]
         term = Clear(text)
-        title = ".I " + str(key)
+        title = "I " + str(key)
         doc = Doc(id,str(key),term)
         data.append(doc)
         dir.append("Data_Cran/" + str(title) + ".txt")
