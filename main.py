@@ -15,19 +15,19 @@ from bool_alg_op import BooleanAlgOp
 
 def main():
 
-    # dir_docs,ids = All_Dir_Doc()  # contiene las direcciones de todos los doc y su id la pos en que estos se encuentran en estos es la misma que en data
+    dir_docs,ids = All_Dir_Doc()  # contiene las direcciones de todos los doc y su id la pos en que estos se encuentran en estos es la misma que en data
     
-    # inicio=time.time()
+    inicio=time.time()
     
-    # data = Create_Data(dir_docs,ids)
+    data = Create_Data(dir_docs,ids)
     
-    # fin=time.time()
-    # print("El tiempo en crear la data")
-    # print(fin-inicio)
+    fin=time.time()
+    print("El tiempo en crear la data")
+    print(fin-inicio)
 
-    data=[]
-    doc1= Doc("doc1","hola",["tiger","dog"])
-    data.append(doc1)
+    # data=[]
+    # doc1= Doc("doc1","hola",["tiger","dog"])
+    # data.append(doc1)
     # doc2= Doc("doc2","hola1",["leon","leon","leon","zorro"])
     # data.append(doc2)
     # doc3= Doc("doc3","hola2",["leon","zorro","nutria"])
@@ -55,7 +55,7 @@ def main():
         
         # if(query_text == "exit"):
         #     break
-    query_text="lion and tiger or lion or not dog"
+    query_text="forget or not dog lion name"
 
     # print(sympy.to_dnf(query_text))
 
@@ -84,20 +84,30 @@ def main():
     print("Query")
     print(query)
 
-    print("result")
+    # print("result")
     print(modelo.load_query(query))
 
-    print("Fnd")
-    print(modelo.q_fnd)
 
-    print("matrix")
-    print(modelo.correl_matrix)
+    # print("Fnd")
+    # print(modelo.q_fnd)
 
-    print("fndc")
-    print(modelo.q_fndc)
+    # print("matrix")
+    # print(modelo.correl_matrix)
 
-    print("ranking function")
-    print(modelo.ranking_function(doc1))
+    # print("grado de pertenencia")
+    # modelo.fuzzy_set_associated_with_doc()
+
+    # print("fndc")
+    # print(modelo.q_fndc)
+
+    # print("ranking function")
+    # print(modelo.ranking_function(doc1))
+
+    inicio=time.time()
+    for doc in modelo.documents:
+        print(modelo.ranking_function(doc))
+    fin=time.time()
+    print(fin-inicio)
 
     # print(modelo.load_query(query))
     # print(modelo.query_term)
