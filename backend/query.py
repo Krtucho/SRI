@@ -45,7 +45,7 @@ def Clear_Query(text,booleano):
     return list(filter(None, tokens))
  
 
-def Load_Query():
+def Load_Query(folder):
         archive = open("Data_Cran/querys.txt")
         data = {}
         key = 1
