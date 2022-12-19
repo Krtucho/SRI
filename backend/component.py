@@ -13,6 +13,8 @@ class Component:
     def eval(self):
         """Genera todas las FND restantes de la CC actual agregando las componentes que faltan hasta lograr generar FNDC para cada cc."""
         components_list: list = [] # Lista que contiene instancias de Component(CC)
+        if  len(self.left_components) == 0:
+            components_list.append(self)
         
         for left_component in self.left_components:
             
@@ -53,7 +55,7 @@ class Component:
                     # bool_val.append(1)
                     
             bool_val = sorted(index, key=lambda x : x[0])   # Los ordeno por valor de indice del termino en el array
-            print(bool_val)
+            # print(bool_val)
             
             dict_str = ""
             for val in bool_val:

@@ -53,7 +53,7 @@ def main():
     
     op = BooleanAlgOp(query_text)
     query_term = ['lion', 'dog', 'tiger']
-    q_fndc = BooleanAlgOp.process_and_get_fndc(str(self.q_fnd), query_term=query_term)
+    q_fndc = BooleanAlgOp.process_and_get_fndc(query_text, query_term=query_term)
     # q_fnd = BooleanAlgOp.get_fndc(3, query_text,['forget', '2017', 'tiger'])
     # q_fnd=sympy.to_dnf((query_text))
     

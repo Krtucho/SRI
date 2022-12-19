@@ -131,7 +131,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Data'),
-    os.path.join(BASE_DIR, 'Data_Cran')
+    os.path.join(BASE_DIR, 'Data_Cran'),
+    os.path.join(BASE_DIR, 'Data_Vaswani')
     ]
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'Data')

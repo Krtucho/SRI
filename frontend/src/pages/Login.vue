@@ -47,7 +47,7 @@
                    <q-select class="col" borderless v-model="nombreCoctel" :options="queryOptions" label="Select Default Query"  style="max-width:15em;"/>
                     <q-select class="col-4 q-pr-sm" borderless v-model="model" :options="options" label="Select Model"  style="max-width:8.5em;"/>
                      <q-select class="col-4 q-pr-sm" borderless v-model="dataBase" :options="dataOptions" label="Select DataBase"  style="max-width:10.5em;"/>
-                    <button class="col-4 btn btn-primary q-pl-sm" style="max-width:5em;">
+                    <button class="col-4 btn btn-primary q-pl-sm search-bt" style="max-width:5em;">
                       Search
                     </button>
                   </div>
@@ -355,7 +355,7 @@ export default defineComponent({
         'Boolean', 'Vector', 'Fuzzy'
       ],
       dataOptions: [
-        'Cranfield', '20newspaper'
+        'Cranfield', '20newspaper', 'Vaswani'
       ],
       queryOptions: default_queries,
       didSearch: false,
@@ -374,7 +374,16 @@ export default defineComponent({
   },
   methods: {
     buscarCoctel() {
-      var request = { 'query': this.nombreCoctel, 'data': this.dataBase };
+      var selectedDataBase = "cran";
+      if (this.dataBase == "Vaswani"){
+        selectedDataBase = "vas";
+      }
+      else if(this.dataBase == "Cranfield"){
+        selectedDataBase = "cran";
+      }else{
+        selectedDataBase = "news";
+      }
+      var request = { 'query': this.nombreCoctel, 'data': selectedDataBase };
       const config = {
         'Content-Type': 'application/json',
         "Accept": "application/json",
@@ -462,6 +471,18 @@ export default defineComponent({
     /* position: absolute; */
     width: 100%;
     height: 100%;
-    object-fit: cover
+    object-fit: cover;
+  }
+  .search-btn{
+    border: 2px solid #0099CC !important;
+    border-radius: 6px !important;
+    color: blue;
+  }
+
+  button{
+    border: 2px solid #0099CC !important;
+    border-radius: 6px !important;
+    color: black;
+    max-height: 50px;
   }
 </style>
