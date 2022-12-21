@@ -11,28 +11,28 @@ Realizar todo el proceso conectados a internet la 1ra vez que se vaya a correr e
 https://www.python.org/downloads/
 ### Instalar Dependencias del requirements.txt, haciendo:
 ```bash
-pip install -r requirements.txt
+>pip install -r requirements.txt
 ```
 ### Correr los siguientes comandos:
-```
+```bash
 >python main.py
 ```
 
-`>python manage.py collectstatic`
+```bash >python manage.py collectstatic```
 
-`>python manage.py runserver`
+```bash >python manage.py runserver ```
 
 ## Correr FrontEnd
 ### Instalar nodejs
 https://nodejs.org/es/download/
 ### Instalar vue-quasar:
-`>npm install -g @quasar/cli`
+```bash >npm install -g @quasar/cli ```
 
 ### Instalar dependencias de npm del proyecto en frontend:
-`>cd frontend`
+```bash >cd frontend ```
 
-`>npm install`
+```bash >npm install ```
 
 ### Ejecutar el proyecto frontend
-`>quasar dev`
+```bash >quasar dev ```
 
