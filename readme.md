@@ -18,21 +18,33 @@ https://www.python.org/downloads/
 >python main.py
 ```
 
-```bash >python manage.py collectstatic```
+```bash 
+>python manage.py collectstatic
+```
 
-```bash >python manage.py runserver ```
+```bash 
+>python manage.py runserver 
+```
 
 ## Correr FrontEnd
 ### Instalar nodejs
 https://nodejs.org/es/download/
 ### Instalar vue-quasar:
-```bash >npm install -g @quasar/cli ```
+```bash 
+>npm install -g @quasar/cli 
+```
 
 ### Instalar dependencias de npm del proyecto en frontend:
-```bash >cd frontend ```
+```bash 
+>cd frontend 
+```
 
-```bash >npm install ```
+```bash 
+>npm install 
+```
 
 ### Ejecutar el proyecto frontend
-```bash >quasar dev ```
+```bash 
+>quasar dev 
+```
 
